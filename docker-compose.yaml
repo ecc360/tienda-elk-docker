@@ -1,0 +1,72 @@
+version: '3.1'
+services:
+  web-001:
+    container_name: web-001
+    build:
+      dockerfile: ./Dockerfile_apache
+      tags:
+        - web-img
+    ports:
+      - "8080:80/tcp"
+    restart: always
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.10
+  
+  mysql-001:
+    container_name: mysql-001
+    build:
+      dockerfile: ./Dockerfile_mysql
+      tags:
+        - mysql-img
+    ports:
+      - "3306:3306/tcp"
+    restart: always
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.20
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.30
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.1
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.40
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.10.1
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logstash/driver:/usr/share/logstash/driver
+    ports:
+      - "5044:5044"
+    depends_on:
+      - elasticsearch
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.50
+
+networks:
+  autoshop-net:
+    name: autoshop-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.40.0/24
