@@ -54,3 +54,5 @@ Compra del producto: Pulsar en comprar. Para el procesamiento del pedido, se eje
 ### 3.4.- Acceso al carrito y los pedidos.
 ![imagen](https://github.com/ecc360/tienda/raw/main/images/3160d81e-343a-450e-be6c-2a5cbedf8343.png)
 
+### 3.5.- Tablero de negocio en ELK.
+
