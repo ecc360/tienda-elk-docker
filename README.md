@@ -35,22 +35,22 @@ Al entrar, debería aparecer una página como esta:
 
 ### 3.1.- Autenticación.
 Al lanzar la aplicación, por defecto crea un usuario admin con contraseña abc123.. Todas las contraseñas en la base de datos están almacenados en hashes sha-512 para preservar su confidencialidad. Para logearse, débese pulsar en el boton "Iniciar sessión" en la esquina superior derecha. Al pulsar aparecerá una ventana de login con botones de inciar sessión y registrarse. 
-![imagen](https://github.com/ecc360/tienda/raw/main/images/f478f390-994d-400b-9dbe-d2f883b13b3b)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/f478f390-994d-400b-9dbe-d2f883b13b3b.png)
 
 Al iniciar sessión correctamente, aparererá una ventana como este:
-![imagen](https://github.com/ecc360/tienda/raw/main/images/09aaef1e-5236-4481-bba3-8a27b2069b41)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/09aaef1e-5236-4481-bba3-8a27b2069b41.png)
 
 ### 3.2.- Vista detallada de productos.
 Al pulsar en ver producto, se puede obtener una vista detallada de los productos de este modo:
-![imagen](https://github.com/ecc360/tienda/raw/main/images/bbacabdc-e0ad-4bfa-a330-9a58d1693968)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/bbacabdc-e0ad-4bfa-a330-9a58d1693968.png)
 
 ### 3.3.- Carro de compra y procesamiento de pedido.
 Vista del carrito:
-![imagen](https://github.com/ecc360/tienda/raw/main/images/12cac226-e390-4d95-8d94-c497c14ed1b7)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/12cac226-e390-4d95-8d94-c497c14ed1b7.png)
 
 Compra del producto: Pulsar en comprar. Para el procesamiento del pedido, se ejecutará un serie de sentencias php y SQL utilizando transacciones y procedimientos almacenados y tablas temporales. Para chequar un pedido, aparecerá una pantalla como este:
-![imagen](https://github.com/ecc360/tienda/raw/main/images/e5a87f37-8bd3-4709-bb36-1fd799aeaf73)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/e5a87f37-8bd3-4709-bb36-1fd799aeaf73.png)
 
 ### 3.4.- Acceso al carrito y los pedidos.
-![imagen](https://github.com/ecc360/tienda/raw/main/images/3160d81e-343a-450e-be6c-2a5cbedf8343)
+![imagen](https://github.com/ecc360/tienda/raw/main/images/3160d81e-343a-450e-be6c-2a5cbedf8343.png)
 
