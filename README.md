@@ -55,4 +55,4 @@ Compra del producto: Pulsar en comprar. Para el procesamiento del pedido, se eje
 ![imagen](https://github.com/ecc360/tienda/raw/main/images/3160d81e-343a-450e-be6c-2a5cbedf8343.png)
 
 ### 3.5.- Tablero de negocio en ELK.
-
+![imagen](https://github.com/ecc360/tienda/raw/main/images/f478f390-994d-400b-9dbe-d2f883b13bb.png)
