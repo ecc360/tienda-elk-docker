@@ -2,6 +2,7 @@ version: '3.1'
 services:
   web-001:
     container_name: web-001
+    hostname: web-001
     build:
       dockerfile: ./Dockerfile_apache
       tags:
@@ -12,9 +13,15 @@ services:
     networks:
       autoshop-net:
         ipv4_address: 172.16.40.10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
   
   mysql-001:
     container_name: mysql-001
+    hostname: mysql-001
     build:
       dockerfile: ./Dockerfile_mysql
       tags:
@@ -25,10 +32,16 @@ services:
     networks:
       autoshop-net:
         ipv4_address: 172.16.40.20
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: elasticsearch
+    hostname: elasticsearch
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -41,6 +54,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.10.1
     container_name: kibana
+    hostname: kibana
     ports:
       - "5601:5601"
     depends_on:
@@ -52,6 +66,7 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.10.1
     container_name: logstash
+    hostname: logstash
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
       - ./logstash/driver:/usr/share/logstash/driver
@@ -62,6 +77,21 @@ services:
     networks:
       autoshop-net:
         ipv4_address: 172.16.40.50
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.10.1
+    container_name: filebeat
+    hostname: filebeat
+    user: root
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - logstash
+    networks:
+      autoshop-net:
+        ipv4_address: 172.16.40.60
 
 networks:
   autoshop-net:
