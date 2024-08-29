@@ -1,0 +1,34 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+metricbeat.modules:
+- module: docker
+  metricsets:
+    - container
+    - cpu
+    - diskio
+    - event
+    - healthcheck
+    - info
+    - memory
+    - network
+  hosts: ["unix:///var/run/docker.sock"]
+  period: 10s
+  enabled: true
+
+- module: mysql
+  metricsets:
+    - status
+    - performance
+  hosts: ["tcp(172.16.40.20:3306)/"]
+  username: "root"
+  password: "autoshop"
+  period: 10s
+  enabled: true
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+
+setup.kibana:
+  host: "http://kibana:5601"

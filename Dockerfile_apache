@@ -3,6 +3,9 @@ FROM ubuntu/apache2:2.4-22.04_beta
 RUN apt-get update -y && apt-get install php php-mysql php-zip php-curl php-xml php-json php-mbstring libapache2-mod-php -y
 
 RUN rm /var/www/html/index.html
+# Redirigir los logs de Apache
+RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log \
+    && ln -sf /proc/self/fd/2 /var/log/apache2/error.log
 
 COPY apache/vhost-autoshop.conf /etc/apache2/sites-avaliable/
 
