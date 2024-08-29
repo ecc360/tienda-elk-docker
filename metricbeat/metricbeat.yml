@@ -27,6 +27,13 @@ metricbeat.modules:
   period: 10s
   enabled: true
 
+- module: apache
+  metricsets:
+    - status
+  hosts: ["http://web-001/server-status"]
+  period: 10s
+  enabled: true
+
 output.elasticsearch:
   hosts: ["http://elasticsearch:9200"]
 
