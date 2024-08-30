@@ -1,18 +1,27 @@
 FROM ubuntu/apache2:2.4-22.04_beta
 
-RUN apt-get update -y && apt-get install php php-mysql php-zip php-curl php-xml php-json php-mbstring libapache2-mod-php -y
+WORKDIR /var/www/html/app
 
-RUN rm /var/www/html/index.html
-# Redirigir los logs de Apache
-RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log \
-    && ln -sf /proc/self/fd/2 /var/log/apache2/error.log
+COPY apache/vhost-autoshop.conf /etc/apache2/sites-available/
+COPY apache/apache2.conf /etc/apache2/
 
-COPY apache/vhost-autoshop.conf /etc/apache2/sites-avaliable/
+RUN apt-get update -y && \
+    apt-get install -y \
+    php \
+    php-mysql \
+    php-zip \
+    php-curl \
+    php-xml \
+    php-json \
+    php-mbstring \
+    libapache2-mod-php && \
+    rm /var/www/html/index.html && \
+    ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
+    ln -sf /proc/self/fd/2 /var/log/apache2/error.log && \
+    a2ensite vhost-autoshop.conf && \
+    a2enmod rewrite && \
+    a2enmod php8.1
 
 COPY app /var/www/html/
-
-
-
-#COPY apache/.htpasswd /var/www/html/
 
 EXPOSE 80
