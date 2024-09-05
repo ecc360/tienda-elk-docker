@@ -84,7 +84,7 @@ services:
     build:
       dockerfile: ./Dockerfile_filebeat
       tags:
-        - web-img
+        - filebeat
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -95,16 +95,17 @@ services:
         ipv4_address: 172.16.40.60
   
   metricbeat:
-    image: docker.elastic.co/beats/metricbeat:7.10.1
     container_name: metricbeat
     hostname: metricbeat
-    user: root
+    build:
+      dockerfile: ./Dockerfile_metricbeat
+      tags:
+        - metricbeat
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /proc:/hostfs/proc:ro
       - /:/hostfs:ro
-      - ./metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
     depends_on:
       - elasticsearch
     networks:
